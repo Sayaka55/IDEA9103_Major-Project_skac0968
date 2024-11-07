@@ -23,9 +23,8 @@ I was inspired by Vincent Van Gogh’s “Starry Night” which we examined for 
 
 - Inspiration 1 - *Wheat Field with Cypresses*
 ![Image1](Images/V.V_Wheat.webp)
+    Image from https://www.newyorker.com/culture/the-art-world/the-world-changing-trees-of-vincent-van-gogh 
 
 - Inspiration 2 - *Starry Night*
 ![Image2](Images/The_Starry_Night.webp)
-
-
-
+    Image from https://www.vangoghgallery.com/painting/starry-night.html
