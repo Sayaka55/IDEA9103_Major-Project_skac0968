@@ -1,7 +1,8 @@
 // Define the radius, number of rows, and number of columns for the cylinders in the Grass element
-let cylinderRadius = 10;
-let cylinderRows = 50;
-let cylinderCols = 50;
+//Change number and size of cylinders (Change 1)
+let cylinderRadius = 20;
+let cylinderRows = 200;
+let cylinderCols = 200;
 
 // Create an empty array to store circles in the River element
 let riverCircles = [];
@@ -10,28 +11,28 @@ let riverCircles = [];
 let ifDrawTree = true;
 
 function setup() {
-  createCanvas(1000, 1000); // Set canvas size to 1000*1000 px
+  createCanvas(800, 800); // Set canvas size to 1000*1000 px
   angleMode(DEGREES); // Use degrees, as opposed to radians, to measure angles
   noLoop(); // Prevent continuous looping as we are drawing a static artwork
 
   // Initialize circles for the river
-  for (let j = 0; j < 60; j++) { // Loop through 60 rows of circles
-    for (let i = 0; i < 120; i++) { // Loop through 120 circles in each row 
+  for (let j = 0; j < 20; j++) { // Loop through 20 rows of circles (Change 1)
+    for (let i = 0; i < 300; i++) { // Loop through 300 circles in each row (Change 1)
 
       // Adjust x position to start from the right side, with a curve to the left
       // Randomize x increment to introduce more curve
-      let x = width - i * random(15, 30); 
+      let x = width - i * random(5, 10); 
 
       // Set a base y-position in the lower part of the canvas and add curving effects
       let baseY = height * 0.7;
       let yOffset = sin(map(i, 0, 40, 0, PI)) * 100; // Stronger sine wave for curvature
-      let rowOffset = j * random(10, 30); // Add variation for each row
-      let downwardSlope = i * random(4, 8);  // Increase downward slope gradually
+      let rowOffset = j * random(5, 15); // Add variation for each row
+      let downwardSlope = i * random(2, 4);  // Increase downward slope gradually
 
       let y = baseY + yOffset + rowOffset + downwardSlope; // Combine all for a flowing shape
 
       // Randomize the size and color of each circle
-      let circleSize = random(20, 70);
+      let circleSize = random(10, 70);
       let blueShade = color(random(0, 100), random(100, 200), random(200, 255));
       riverCircles.push(new Circle(x, y, circleSize, blueShade));
     }
@@ -91,9 +92,9 @@ function drawCylinder(x, y, topHeight) {
   translate(x, y); // Place the cylinder at the specified origin (x,y)
 
   // Draw the side face of the cylinder
-  fill(random(50,100), 196, 82); 
-  strokeWeight(1);
-  stroke(255); 
+  fill(random(0,100), 130, 70); //Dark shade of green (Change 1)
+  strokeWeight(0.3); //Lighter stroke (Change 1)
+  stroke(10); //Grey Stroke color (Change 1)
   
   /* The usage of beginShape() and endShape() functions was modified from the examples on https://p5js.org/reference/p5/beginShape/.
   These two functions allow for creating a custom shape by adding vertices in the vertex() function.
@@ -189,10 +190,13 @@ class Circle {
 function drawTree(x, y, angle, number) {
   if (number > 0) {
     // Draw the main branch
+    strokeWeight(map(number, 0, 10, 1, 8)); //Made branch thicker
     let length = map(number, 0, 10, 10, 100);
     let x2 = x + cos(angle) * length;
     let y2 = y + sin(angle) * length;
-    stroke(random(100, 255), random(100, 255), random(100, 255)); 
+
+    //Shade of brown for branch (Change 1)
+    stroke(101, 67, 33); 
     line(x, y, x2, y2);
 
     // Call the function to draw circles around every branch
