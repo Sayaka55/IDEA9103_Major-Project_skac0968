@@ -10,6 +10,9 @@ let riverCircles = [];
 // Create a boolean variable to control when the Tree element is drawn
 let ifDrawTree = true;
 
+let treeVisible = true;  // To track if the tree is visible or not
+let riverCircleSize = 40;  // Default size for the river circles
+
 function setup() {
   createCanvas(800, 800); // Set canvas size to 1000*1000 px
   angleMode(DEGREES); // Use degrees, as opposed to radians, to measure angles
@@ -21,7 +24,7 @@ function setup() {
 
       // Adjust x position to start from the right side, with a curve to the left
       // Randomize x increment to introduce more curve
-      let x = width - i * random(5, 10); 
+      let x = width - i * random(5, 50); 
 
       // Set a base y-position in the lower part of the canvas and add curving effects
       let baseY = height * 0.7;
@@ -32,7 +35,7 @@ function setup() {
       let y = baseY + yOffset + rowOffset + downwardSlope; // Combine all for a flowing shape
 
       // Randomize the size and color of each circle
-      let circleSize = random(10, 70);
+      let circleSize = random(1, 100);
       let blueShade = color(random(0, 100), random(100, 200), random(200, 255));
       riverCircles.push(new Circle(x, y, circleSize, blueShade));
     }
@@ -58,15 +61,35 @@ function draw() {
 
   // Draw the River element
   for (let circle of riverCircles) {
+    circle.size = riverCircleSize;  // Adjust the size of the river circles
     circle.display();
   }
 
-  // Draw the Tree element
-  if (ifDrawTree) {
-    drawTree(width/1.6, height * 0.7, -90, 9); // Start from the bottom middle, pointing upwards
-    ifDrawTree = false; 
+  // Draw the Tree element if it's visible
+  if (treeVisible) {
+    drawTree(width / 1.6, height * 0.7, -90, 9); 
   }
 }
+
+// Mouse interaction: Modify river circle size based on mouse position
+function mouseDragged() {
+    // Update the size of the river circles based on the horizontal position of the mouse
+    riverCircleSize = map(mouseX, 0, width, 10, 100);
+    redraw();  // Redraw after changing the size
+  }
+  
+
+  //Key interaction: Toggle visibility of the tree with the "T" key
+  //Toggle enables elements to appear and disappear 
+  //The keyPressed() function toggles the visibility of the tree when the user presses the 'T' or 't' key by flipping the value of the treeVisible variable. 
+  //If treeVisible is true, the tree is hidden, and if it's false, the tree is shown.
+  //https://www.geeksforgeeks.org/how-to-toggle-between-hiding-and-showing-an-element-using-javascript/
+  function keyPressed() {
+    if (key === 'T' || key === 't') {
+      treeVisible = !treeVisible;  // Toggle visibility of the tree
+      redraw();  // Redraw after toggling visibility
+    }
+  }
 
 // Create a function to draw the Grass element using cylinders
 function drawGrass() {
